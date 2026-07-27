@@ -5,19 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
   <title>MLX SLM Course</title>
+  <meta name="description" content="Self-contained course: small language models on Apple silicon with MLX. Project: classify Indian transaction text into tax-relevant labels." />
   <link rel="stylesheet" href="assets/lesson.css" />
 </head>
 <body>
-  <div class="page">
+  <div class="page shell">
     <div class="page-inner">
+      <div class="brand-row">
+        <a class="brand-mark" href="index.html">
+          <span class="logo" aria-hidden="true">MLX</span>
+          <span>SLM Course</span>
+        </a>
+        <div class="meta-row" style="margin:0">
+          <span class="badge">Public</span>
+          <span class="dot"></span>
+          <span>M2 Pro · 32 GB</span>
+        </div>
+      </div>
+
       <header class="course-header">
-        <div class="meta-row"><span class="badge">MLX SLM Course</span><span class="dot"></span><span>Index</span></div>
+        <div class="meta-row">
+          <span class="badge">Course index</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>Self-contained</span>
+        </div>
         <h1>Small language models on MLX</h1>
         <p class="lede">
-          A self-contained course: learn SLMs deeply on Apple silicon (M2 Pro · 32&nbsp;GB).
-          Project vehicle — classify Indian transaction text into tax-relevant labels.
+          Learn SLMs deeply on Apple silicon. Specialize a tiny open instruct model with LoRA —
+          project vehicle: Indian transaction text → tax-relevant labels.
         </p>
+        <div class="chip-row">
+          <span class="chip"><strong>Stack</strong>&nbsp; MLX · mlx-lm · LoRA</span>
+          <span class="chip"><strong>Lab</strong>&nbsp; M2 Pro 32 GB</span>
+          <span class="chip"><strong>Path</strong>&nbsp; fine-tune, not pretrain</span>
+        </div>
       </header>
+
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="k">Lessons ready</div>
+          <div class="v">0001 live</div>
+        </div>
+        <div class="stat">
+          <div class="k">Next up</div>
+          <div class="v">Mac setup + generate</div>
+        </div>
+        <div class="stat">
+          <div class="k">Project</div>
+          <div class="v">Txn → tax labels</div>
+        </div>
+      </div>
 
       <div class="win">
         <div class="label">Mission</div>
@@ -29,17 +66,36 @@
       </div>
 
       <h2>Lessons</h2>
-      <div class="nav-links">
-        <a href="lessons/0001-the-map-slm-mlx-tax-labels.html">0001 · The map: SLM + MLX + tax labels</a>
-      </div>
+      <ul class="lesson-list">
+        <li>
+          <a class="lesson-card" href="lessons/0001-the-map-slm-mlx-tax-labels.html">
+            <span class="n">0001</span>
+            <span>
+              <div class="title">The map: SLM + MLX + tax labels</div>
+              <div class="meta">Build path · stack · classification as demos · ~10 min</div>
+            </span>
+            <span class="go">Open →</span>
+          </a>
+        </li>
+      </ul>
 
       <h2>Reference</h2>
-      <div class="nav-links">
-        <a href="reference/mlx-slm-map.html">Map at a glance</a>
-      </div>
+      <ul class="lesson-list">
+        <li>
+          <a class="lesson-card" href="reference/mlx-slm-map.html">
+            <span class="n">REF</span>
+            <span>
+              <div class="title">Map at a glance</div>
+              <div class="meta">Stack · commands · hardware · draft labels</div>
+            </span>
+            <span class="go">Open →</span>
+          </a>
+        </li>
+      </ul>
 
-      <p class="cite" style="margin-top:2rem">
-        Lab hardware: <strong>Apple M2 Pro · 32&nbsp;GB</strong> unified memory · macOS ≥ 14 · native Python ≥ 3.10.
+      <p class="cite">
+        Lab hardware locked: <strong>Apple M2 Pro · 32&nbsp;GB</strong> unified memory · macOS ≥ 14 · native Python ≥ 3.10.
+        Source: <a href="https://github.com/prayanks/mlx-slm-course">github.com/prayanks/mlx-slm-course</a>
       </p>
     </div>
   </div>
