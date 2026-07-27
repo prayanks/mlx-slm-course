@@ -5,7 +5,7 @@
 - Hardware locked: **M2 Pro, 32 GB unified memory.** Default lab models: small instruct SLMs (~0.5B–3B, often 4-bit from mlx-community). 7B QLoRA is feasible later with batch size 1 / fewer layers — not the first lab.
 - MLX runs on the Mac only. Course files may be edited on a Linux VPS; never claim MLX trains on the VPS.
 - Prefer crisp high-signal material; short lessons; one tangible win.
-- Visual system: **Silicon Lab** — Instrument Sans + Newsreader + IBM Plex Mono; electric blue/indigo accent on cool slate paper; light+dark via prefers-color-scheme. Shared CSS in `assets/lesson.css`. Distinct from other courses.
+- Visual system: **Apple marketing-inspired** — system SF fonts (`-apple-system`), `#f5f5f7` / black rhythm, single accent Apple Blue `#0071e3`, tight display headlines, pill CTAs, glass topnav, minimal borders/shadows. Shared CSS in `assets/lesson.css`.
 - Path choice for classification: start with **generative SLM + LoRA** (chat/completion → label string) for learning MLX LM; later optional encoder/classifier comparison so user knows when SLM is overkill.
 - Do **not** present course tax labels as legal advice.
 - First lesson priority: map (pretrain vs fine-tune vs classify-as-generation) before install or train.
