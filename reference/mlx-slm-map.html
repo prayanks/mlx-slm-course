@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Reference · MLX SLM map at a glance</title>
+  <link rel="stylesheet" href="../assets/lesson.css" />
+</head>
+<body>
+  <div class="page wide">
+    <div class="page-inner">
+      <header class="course-header">
+        <div class="meta-row">
+          <span class="badge">Reference</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>MLX SLM Course</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>Print-friendly</span>
+        </div>
+        <h1>Map at a glance</h1>
+        <p class="lede">Compressed compass for the course. Revisit when choosing models, data format, or whether you’re on the wrong mountain.</p>
+      </header>
+
+      <h2>Stack</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Layer</th><th>What it is</th><th>Reach for</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>MLX</strong></td>
+              <td>Array / ML framework for Apple silicon (Metal, unified memory)</td>
+              <td><a href="https://ml-explore.github.io/mlx/">docs</a></td>
+            </tr>
+            <tr>
+              <td><strong>mlx-lm</strong></td>
+              <td>Generate, convert/quantize, LoRA/QLoRA/full FT, fuse</td>
+              <td><a href="https://github.com/ml-explore/mlx-lm">repo</a> · <a href="https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LORA.md">LORA.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>Weights</strong></td>
+              <td>HF checkpoints, often pre-converted in mlx-community</td>
+              <td><a href="https://huggingface.co/mlx-community">mlx-community</a></td>
+            </tr>
+            <tr>
+              <td><strong>Your adapter</strong></td>
+              <td>Small trainable LoRA weights specialized on transaction→label demos</td>
+              <td><code>mlx_lm.lora</code> → <code>adapters/</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Build path (yes)</h2>
+      <pre><code>open small instruct SLM  →  JSONL demos (txn → label)
+        →  mlx_lm.lora (LoRA / QLoRA)
+        →  held-out classifier metrics
+        →  optional mlx_lm.fuse</code></pre>
+
+      <h2>Build path (no)</h2>
+      <ul>
+        <li>Pretrain from random weights on “all finance text”</li>
+        <li>Start with full FT of a large model on a thin laptop</li>
+        <li>Cloud-prompt only (skips MLX craft)</li>
+        <li>Free-form tax essays as training targets</li>
+        <li>Confusing our labels with §285BA reporting SFT tables</li>
+      </ul>
+
+      <h2>How classification meets an SLM</h2>
+      <p>Target tokens = closed label string. Prefer chat/completions JSONL + prompt masking so loss sits on the label.</p>
+      <pre><code>{"messages":[
+  {"role":"user","content":"Classify…\nText: UPI-AMZN… Rs.1249"},
+  {"role":"assistant","content":"shopping"}
+]}</code></pre>
+
+      <h2>Draft label seeds (not legal advice)</h2>
+      <p class="cite">Will be frozen in a dedicated reference when schema is locked.</p>
+      <ul>
+        <li><code>shopping</code> · <code>interest_income</code> · <code>dividend</code> · <code>salary</code></li>
+        <li><code>transfer</code> · <code>tax_payment</code> · <code>investment</code> · <code>other</code></li>
+      </ul>
+
+      <h2>Hardware (locked)</h2>
+        <ul>
+          <li><strong>Apple M2 Pro · 32 GB</strong> unified memory · macOS ≥ 14 · native Python ≥ 3.10</li>
+          <li>Default labs: ~0.5B–3B instruct (often 4-bit). 7B QLoRA later with memory knobs if needed</li>
+          <li>Course files may be edited on another machine — MLX train/infer still runs on the Mac</li>
+          <li>Memory tips: smaller model, 4-bit base (QLoRA), <code>--batch-size 1</code>, fewer <code>--num-layers</code>, <code>--grad-checkpoint</code> — see LORA.md <em>Memory Issues</em></li>
+        </ul>
+
+      <h2>Core commands (cheat)</h2>
+      <pre><code>pip install "mlx-lm[train]"
+
+mlx_lm.generate --model &lt;mlx-model&gt; --prompt "…"
+
+mlx_lm.lora --model &lt;mlx-model&gt; --train --data ./data --iters 600
+
+mlx_lm.fuse --model &lt;mlx-model&gt; --adapter-path ./adapters</code></pre>
+
+      <h2>Key links</h2>
+      <ul>
+        <li><a href="https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LORA.md">Official LoRA guide</a> (primary)</li>
+        <li><a href="https://developer.apple.com/videos/play/wwdc2025/298/">WWDC25 MLX LM</a></li>
+        <li><a href="https://arxiv.org/abs/2106.09685">LoRA paper</a> · <a href="https://arxiv.org/abs/2305.14314">QLoRA paper</a></li>
+        <li><a href="https://www.incometaxindia.gov.in/w/reporting-of-high-value-transactions">IT reporting SFT table</a> (domain context only)</li>
+      </ul>
+
+      <footer class="course-footer">
+        <div class="nav-links">
+          <a href="../index.html">Course index</a>
+          <a href="../lessons/0001-the-map-slm-mlx-tax-labels.html">Lesson 0001 · The map</a>
+          <a href="../MISSION.md">Mission</a>
+        </div>
+        <p style="margin:0.85rem 0 0">Workspace <code>~/mlx-slm-course</code></p>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
