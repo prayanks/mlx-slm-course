@@ -10,3 +10,4 @@
 - Do **not** present course tax labels as legal advice.
 - First lesson priority: map (pretrain vs fine-tune vs classify-as-generation) before install or train.
 - **Git workflow:** private repo https://github.com/prayanks/mlx-slm-course — after generating or materially updating a lesson/reference, commit and push to `main` in the same turn. Remote is HTTPS without embedded token (`git remote -v` should stay clean).
+- **GitHub Pages (public):** https://prayanks.github.io/mlx-slm-course/ — repo is public; do not commit unredacted PII.
