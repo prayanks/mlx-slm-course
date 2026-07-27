@@ -1,13 +1,13 @@
 # Teaching notes
 
-- Mission mode: **learn SLMs + MLX deeply**; Indian tax transaction labels are the **project vehicle**, not the end product.
-- **Fully independent course.** Do not assume any other course (including any SFT course). Teach supervised fine-tuning, demos, loss, and eval here when the lesson needs them.
-- Hardware locked: **M2 Pro, 32 GB unified memory.** Default lab models: small instruct SLMs (~0.5B–3B, often 4-bit from mlx-community). 7B QLoRA is feasible later with batch size 1 / fewer layers — not the first lab.
-- MLX runs on the Mac only. Course files may be edited on a Linux VPS; never claim MLX trains on the VPS.
+- **Course identity:** Fine-tune on MLX to classify Indian transaction text into labels. Not an “SLM course.” Small open models are *bases we fine-tune*, not the product name.
+- Mission mode: ship understanding + a working LoRA path for txn→label; labels are the project, fine-tuning is the skill.
+- **Fully independent.** Teach supervised fine-tuning, demos, loss, eval from first principles.
+- Hardware locked: **M2 Pro, 32 GB.** Default bases: ~0.5B–3B instruct (4-bit). 7B QLoRA later if needed.
+- MLX runs on the Mac only. Course files may be edited on a Linux VPS.
 - Prefer crisp high-signal material; short lessons; one tangible win.
-- Visual system: **Apple marketing-inspired** — system SF fonts (`-apple-system`), `#f5f5f7` / black rhythm, single accent Apple Blue `#0071e3`, tight display headlines, pill CTAs, glass topnav, minimal borders/shadows. Shared CSS in `assets/lesson.css`.
-- Path choice for classification: start with **generative SLM + LoRA** (chat/completion → label string) for learning MLX LM; later optional encoder/classifier comparison so user knows when SLM is overkill.
+- Visual system: **Apple marketing-inspired** — system SF fonts, `#f5f5f7` / black, Apple Blue `#0071e3` only, glass topnav, pill CTAs. `assets/lesson.css`.
+- Path: **generative fine-tune** (chat/completion → label string) first; later optional encoder/rules comparison.
 - Do **not** present course tax labels as legal advice.
-- First lesson priority: map (pretrain vs fine-tune vs classify-as-generation) before install or train.
-- **Git workflow:** public repo https://github.com/prayanks/mlx-slm-course — after generating or materially updating a lesson/reference, commit and push to `main` in the same turn. Remote is HTTPS without embedded token (`git remote -v` should stay clean).
-- **GitHub Pages:** https://prayanks.github.io/mlx-slm-course/ — do not commit unredacted PII.
+- **Git:** public repo (renamed to `mlx-txn-finetune`); commit + push after each lesson. Pages: `https://prayanks.github.io/mlx-txn-finetune/`.
+- Brand strings in HTML: “Txn fine-tune” / “MLX fine-tune” — never “SLM Course” as the title.

@@ -4,18 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
-  <title>MLX SLM Course</title>
-  <meta name="description" content="Self-contained course: small language models on Apple silicon with MLX. Project: classify Indian transaction text into tax-relevant labels." />
+  <title>Fine-tune on MLX · Transaction labels</title>
+  <meta name="description" content="Fine-tune open models on Apple silicon with MLX so Indian transaction text maps to tax-relevant labels." />
   <link rel="stylesheet" href="assets/lesson.css" />
 </head>
 <body>
   <nav class="topnav" aria-label="Course">
     <div class="topnav-inner">
-      <a class="brand" href="index.html">MLX SLM</a>
+      <a class="brand" href="index.html">Txn fine-tune</a>
       <div style="display:flex;gap:1.25rem;align-items:center">
-        <a href="lessons/0001-the-map-slm-mlx-tax-labels.html">Lesson</a>
-        <a href="reference/mlx-slm-map.html">Reference</a>
-        <a href="https://github.com/prayanks/mlx-slm-course">GitHub</a>
+        <a href="lessons/0001-what-is-finetuning-for-txn-labels.html">Lesson</a>
+        <a href="reference/finetune-map.html">Reference</a>
+        <a href="https://github.com/prayanks/mlx-txn-finetune">GitHub</a>
       </div>
     </div>
   </nav>
@@ -23,20 +23,20 @@
   <div class="page shell">
     <div class="page-inner">
       <header class="course-header">
-        <p class="eyebrow">Course · Apple silicon</p>
-        <h1>Small language models on MLX.</h1>
+        <p class="eyebrow">Course · Fine-tuning on Apple silicon</p>
+        <h1>Fine-tune a model to label transactions.</h1>
         <p class="lede">
-          Learn SLMs deeply on a Mac. Specialize a tiny open instruct model with LoRA —
-          using Indian transaction text → tax-relevant labels as the project.
+          Supervised fine-tuning (LoRA) with MLX on a Mac. Project: map messy Indian bank/card text
+          to stable tax-relevant labels — shopping, interest, dividends, and more.
         </p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="lessons/0001-the-map-slm-mlx-tax-labels.html">Start lesson 0001</a>
-          <a class="btn btn-ghost" href="reference/mlx-slm-map.html">Map at a glance</a>
+          <a class="btn btn-primary" href="lessons/0001-what-is-finetuning-for-txn-labels.html">Start lesson 0001</a>
+          <a class="btn btn-ghost" href="reference/finetune-map.html">Fine-tune map</a>
         </div>
         <div class="chip-row">
+          <span class="chip">Fine-tune · not pretrain</span>
           <span class="chip">MLX · mlx-lm · LoRA</span>
           <span class="chip">M2 Pro · 32&nbsp;GB</span>
-          <span class="chip">Fine-tune, not pretrain</span>
         </div>
       </header>
     </div>
@@ -45,16 +45,16 @@
       <div class="inner">
         <div class="stat-grid">
           <div class="stat">
-            <div class="k">Lessons ready</div>
-            <div class="v">0001</div>
-          </div>
-          <div class="stat">
-            <div class="k">Next up</div>
-            <div class="v">Setup + generate</div>
+            <div class="k">Method</div>
+            <div class="v">SFT + LoRA</div>
           </div>
           <div class="stat">
             <div class="k">Project</div>
             <div class="v">Txn → labels</div>
+          </div>
+          <div class="stat">
+            <div class="k">Lesson ready</div>
+            <div class="v">0001</div>
           </div>
         </div>
       </div>
@@ -64,9 +64,8 @@
       <div class="win">
         <div class="label">Mission</div>
         <p>
-          Specialize a small open instruct model with LoRA via <code>mlx-lm</code> — not pretrain from scratch.
-          Tax labels force messy real text, a closed schema, and honest metrics.
-          Supervised fine-tuning is taught here; no other course required.
+          Take a small open instruct model and <strong>fine-tune</strong> it with labeled transaction demos so it emits
+          a closed set of labels. Not pretraining. Not an abstract “SLM” product — a concrete fine-tune for classification.
         </p>
       </div>
     </div>
@@ -76,11 +75,11 @@
         <h2>Lessons</h2>
         <ul class="lesson-list">
           <li>
-            <a class="lesson-card" href="lessons/0001-the-map-slm-mlx-tax-labels.html">
+            <a class="lesson-card" href="lessons/0001-what-is-finetuning-for-txn-labels.html">
               <span class="n">0001</span>
               <span>
-                <div class="title">The map: SLM + MLX + tax labels</div>
-                <div class="meta">Build path · stack · classification as demos · ~10 min</div>
+                <div class="title">What fine-tuning is (for txn labels)</div>
+                <div class="meta">FT vs pretrain vs prompt · MLX path · label demos · ~10 min</div>
               </span>
               <span class="go">Learn more</span>
             </a>
@@ -90,10 +89,10 @@
         <h2 style="margin-top: 2.75rem">Reference</h2>
         <ul class="lesson-list">
           <li>
-            <a class="lesson-card" href="reference/mlx-slm-map.html">
+            <a class="lesson-card" href="reference/finetune-map.html">
               <span class="n">REF</span>
               <span>
-                <div class="title">Map at a glance</div>
+                <div class="title">Fine-tune map at a glance</div>
                 <div class="meta">Stack · commands · hardware · draft labels</div>
               </span>
               <span class="go">Learn more</span>
@@ -103,7 +102,7 @@
 
         <p class="foot-note">
           Lab hardware: <strong>Apple M2 Pro · 32&nbsp;GB</strong> · macOS ≥ 14 · native Python ≥ 3.10.<br />
-          <a href="https://github.com/prayanks/mlx-slm-course">View on GitHub</a>
+          <a href="https://github.com/prayanks/mlx-txn-finetune">View on GitHub</a>
         </p>
       </div>
     </section>

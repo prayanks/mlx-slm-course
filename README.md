@@ -1,6 +1,8 @@
-# MLX SLM Course
+# Fine-tune on MLX: transaction labels
 
-Self-contained course: **small language models on Apple silicon with MLX**, using Indian transaction text → tax-relevant labels as the project.
+Self-contained course: **supervised fine-tuning** (LoRA) of open models on Apple silicon with **MLX**, so transaction text maps to **tax-relevant labels**.
+
+> Not an “SLM course.” We fine-tune small open instruct bases. The skill is fine-tuning; the project is classification.
 
 ## Lab hardware
 
@@ -10,8 +12,8 @@ Self-contained course: **small language models on Apple silicon with MLX**, usin
 
 ## Open the course
 
-- **GitHub Pages:** https://prayanks.github.io/mlx-slm-course/
-- Lesson 0001: https://prayanks.github.io/mlx-slm-course/lessons/0001-the-map-slm-mlx-tax-labels.html
+- **GitHub Pages:** https://prayanks.github.io/mlx-txn-finetune/
+- Lesson 0001: https://prayanks.github.io/mlx-txn-finetune/lessons/0001-what-is-finetuning-for-txn-labels.html
 - Or open `index.html` locally
 
 | Path | What |
@@ -25,14 +27,14 @@ Self-contained course: **small language models on Apple silicon with MLX**, usin
 
 ## Independence
 
-This course teaches supervised fine-tuning, LoRA, data format, and eval **from first principles**. It does not depend on any other course.
+This course teaches fine-tuning, LoRA, data format, and classifier-style eval **from first principles**.
 
 ## Privacy
 
-- Repo is **public** (required for free-plan GitHub Pages).
+- Repo is **public** (GitHub Pages).
 - Never commit real account numbers, full unredacted statements, or tax filings.
-- Sample/transaction data used in labs must be synthetic or scrubbed.
+- Lab data must be synthetic or scrubbed.
 
 ## Workflow (for the teacher agent)
 
-After generating or updating a lesson/reference in a session: commit and push to `main`. Pages rebuilds from `main` root.
+After generating or updating a lesson/reference: commit and push to `main`. Pages rebuilds from `main` root.

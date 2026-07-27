@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>0001 · What fine-tuning is (for txn labels)</title>
+  <link rel="stylesheet" href="../assets/lesson.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="page-inner">
+      <div class="brand-row">
+        <a class="brand-mark" href="../index.html">
+          <span class="logo" aria-hidden="true">FT</span>
+          <span>Txn fine-tune</span>
+        </a>
+        <div class="meta-row" style="margin:0">
+          <span>M2 Pro · 32 GB</span>
+        </div>
+      </div>
+      <header class="course-header">
+        <div class="meta-row">
+          <span class="badge">Lesson 0001</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>MLX fine-tune</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>~10 min</span>
+        </div>
+        <h1>What fine-tuning is (for transaction labels)</h1>
+        <p class="lede">
+          One idea: you will <strong>fine-tune</strong> an open instruct model on Apple silicon so messy transaction text becomes a short, stable label — not pretrain a model, and not “build an SLM” as something else.
+        </p>
+      </header>
+
+      <div class="win">
+        <div class="label">Today’s win</div>
+        <p>
+          State what fine-tuning changes, how it differs from pretraining and prompting, and name the exact path for this project: demos → LoRA on MLX → classifier-style eval.
+        </p>
+      </div>
+
+      <h2><span class="num">01</span> Why this matters for your mission</h2>
+      <p>
+        You want a <strong>Mac-local pipeline</strong> that reads Indian bank/card transaction lines and outputs labels like
+        <code>shopping</code>, <code>interest_income</code>, <code>dividend</code>.
+      </p>
+      <p>
+        The skill that delivers that is <strong>supervised fine-tuning</strong> (almost always with <strong>LoRA</strong> on a small open base), using <strong>MLX / mlx-lm</strong>.
+        Calling it an “SLM course” hid the method. This course names the method first.
+      </p>
+
+      <h2><span class="num">02</span> Three paths people mix up</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Path</th><th>What you change</th><th>This course?</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Pretraining</strong></td>
+              <td>Train (near) from scratch on huge text</td>
+              <td>No — wrong cost/scale for labels</td>
+            </tr>
+            <tr>
+              <td><strong>Fine-tuning</strong></td>
+              <td>Continue training a <em>pretrained</em> model on your labeled demos</td>
+              <td><strong>Yes — this is the course</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Prompting only</strong></td>
+              <td>Weights stay frozen; you only write instructions</td>
+              <td>Useful baseline later — not the skill we’re shipping</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Fine-tuning has flavors: <strong>full</strong> (update most weights) vs <strong>LoRA/QLoRA</strong> (train small adapters; freeze almost all of the base).
+        On an <strong>M2 Pro · 32&nbsp;GB</strong>, we default to LoRA on a small instruct checkpoint.
+        Official how-to:
+        <a href="https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LORA.md">mlx-lm LoRA guide</a>.
+      </p>
+
+      <div class="callout accent">
+        <div class="label">Naming rule</div>
+        <p>
+          A “small language model” is just a <em>small pretrained base</em> you might fine-tune.
+          The course product is a <strong>fine-tuned classifier behavior</strong> (base + adapter), not a new architecture you invent.
+        </p>
+      </div>
+
+      <h2><span class="num">03</span> The stack (tools, not the goal)</h2>
+      <p>
+        <a href="https://ml-explore.github.io/mlx/"><strong>MLX</strong></a> — array/ML framework for Apple silicon (Metal, unified memory).
+        macOS ≥&nbsp;14, native Python ≥&nbsp;3.10.
+      </p>
+      <p>
+        <a href="https://github.com/ml-explore/mlx-lm"><strong>mlx-lm</strong></a> — run and <em>fine-tune</em> language models on MLX.
+        You will live in <code>mlx_lm.lora</code>, plus <code>generate</code> / <code>fuse</code> / <code>convert</code>.
+      </p>
+      <p>
+        <strong>Bases</strong> — small open instruct weights from
+        <a href="https://huggingface.co/mlx-community">mlx-community</a>
+        (about 0.5B–3B, often 4-bit). We fine-tune them; we do not brand the course after them.
+      </p>
+
+      <h2><span class="num">04</span> Project path</h2>
+      <div class="pipeline" role="list">
+        <div class="step" role="listitem">
+          <div class="n" aria-hidden="true">0</div>
+          <div class="body">
+            <div class="label">Download a pretrained instruct base</div>
+            <div class="hint">Someone else already did web-scale pretraining (+ often general instruction SFT).</div>
+          </div>
+        </div>
+        <div class="step highlight" role="listitem">
+          <div class="n" aria-hidden="true">1</div>
+          <div class="body">
+            <div class="label">Your fine-tune: txn → label demos</div>
+            <div class="hint">JSONL chat/completions. LoRA via mlx_lm.lora. Loss on the label tokens (--mask-prompt when possible).</div>
+          </div>
+        </div>
+        <div class="step" role="listitem">
+          <div class="n" aria-hidden="true">2</div>
+          <div class="body">
+            <div class="label">Eval like a classifier</div>
+            <div class="hint">Held-out accuracy, F1, confusion — not three cherry-picked SMS.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2><span class="num">05</span> Classification as fine-tuning targets</h2>
+      <p>
+        Supervised fine-tuning means: for each input, you provide the output you want the model to imitate
+        (<a href="https://arxiv.org/abs/2203.02155">InstructGPT-style demos</a>).
+        For this project the output is a <strong>closed label string</strong>:
+      </p>
+      <pre><code>User: Classify this Indian bank transaction for personal books.
+Text: UPI-AMZN_Pay-1234@okhdfcbank Rs.1,249.00
+Assistant: shopping</code></pre>
+      <p>
+        Same fine-tuning machinery as teaching a model to write essays — but the answer vocabulary is tiny and measurable.
+        Data formats for mlx-lm:
+        <a href="https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LORA.md#data">chat / completions / text in LORA.md</a>.
+      </p>
+
+      <div class="callout warn">
+        <div class="label">Honest alternative (later)</div>
+        <p>
+          Rules + merchant maps, or a classical text classifier, can beat a generative fine-tune on latency and simplicity.
+          We still fine-tune first because you asked to learn this stack with a real labeling project. We’ll compare later.
+        </p>
+      </div>
+
+      <h2><span class="num">06</span> Labels (project schema, not tax law)</h2>
+      <p>
+        Income-tax “SFT” reporting tables
+        (<a href="https://www.incometaxindia.gov.in/w/reporting-of-high-value-transactions">high-value transactions</a>)
+        are <strong>not</strong> our class list. Draft engineering labels:
+      </p>
+      <ul>
+        <li><code>shopping</code> · <code>interest_income</code> · <code>dividend</code> · <code>salary</code></li>
+        <li><code>transfer</code> · <code>tax_payment</code> · <code>investment</code> · <code>other</code></li>
+      </ul>
+      <p>We’ll lock the schema in a later lesson. Not legal advice.</p>
+
+      <h2><span class="num">07</span> What “done” looks like for the course</h2>
+      <ol class="steps">
+        <li>You can explain fine-tuning vs pretraining vs prompting without hand-waving.</li>
+        <li>M2 Pro has <code>mlx-lm</code>; you can generate from a small instruct base offline.</li>
+        <li>You own redacted JSONL train/valid/test for txn→label.</li>
+        <li><code>mlx_lm.lora</code> improves held-out label metrics.</li>
+        <li>You know LoRA vs full FT, when to fuse, and main failure modes (schema freestyle, leakage, bad demos).</li>
+      </ol>
+
+      <h2><span class="num">08</span> Check understanding</h2>
+      <p class="cite">Options are length-matched on purpose — answer from memory, then click.</p>
+
+      <div class="quiz"
+           data-correct="2"
+           data-explain="This course is supervised fine-tuning (usually LoRA) of a pretrained open model so it emits txn labels. Pretraining from scratch and prompt-only APIs are different paths.">
+        <div class="quiz-q">1. What is this course primarily teaching you to do?</div>
+        <div class="quiz-options">
+          <button type="button" data-i="0">Pretrain a new transformer on all Indian bank SMS</button>
+          <button type="button" data-i="1">Only prompt a hosted API with zero weight updates</button>
+          <button type="button" data-i="2">Fine-tune an open model so txn text maps to labels</button>
+          <button type="button" data-i="3">Design a new neural architecture called an SLM</button>
+        </div>
+        <div class="quiz-feedback" hidden></div>
+      </div>
+
+      <div class="quiz"
+           data-correct="1"
+           data-explain="Fine-tuning continues training a pretrained model on your data. Pretraining is the earlier web-scale stage. Prompting does not update weights. Fuse merges an already-trained adapter.">
+        <div class="quiz-q">2. In one line, what does fine-tuning do?</div>
+        <div class="quiz-options">
+          <button type="button" data-i="0">Trains random weights on the whole public web corpus</button>
+          <button type="button" data-i="1">Updates a pretrained model using your labeled demos</button>
+          <button type="button" data-i="2">Leaves weights frozen and only edits the system prompt</button>
+          <button type="button" data-i="3">Merges two adapters without any training data at all</button>
+        </div>
+        <div class="quiz-feedback" hidden></div>
+      </div>
+
+      <div class="quiz"
+           data-correct="0"
+           data-explain="We cast classification as supervised fine-tuning targets: the completion tokens are the label. Free-form tax opinions and pure RL are different games; §285BA tables are reporting rules, not our class list.">
+        <div class="quiz-q">3. How do we turn “classify this txn” into fine-tune data?</div>
+        <div class="quiz-options">
+          <button type="button" data-i="0">Demos where the desired output tokens are the label</button>
+          <button type="button" data-i="1">Ask the model to write a full appellate tax opinion</button>
+          <button type="button" data-i="2">Optimize only a PPO reward with no label strings</button>
+          <button type="button" data-i="3">Map each SMS to §285BA high-value reporting rows</button>
+        </div>
+        <div class="quiz-feedback" hidden></div>
+      </div>
+
+      <div class="quiz"
+           data-correct="3"
+           data-explain="Training runs on your Apple silicon Mac with mlx-lm. The course site may be hosted elsewhere; weights update on the M2 Pro.">
+        <div class="quiz-q">4. Where does the fine-tune job actually run?</div>
+        <div class="quiz-options">
+          <button type="button" data-i="0">Only on a remote Linux VPS GPU with CUDA drivers</button>
+          <button type="button" data-i="1">Only inside a browser tab with no local Python</button>
+          <button type="button" data-i="2">Only on Google TPUs rented by the mlx-lm package</button>
+          <button type="button" data-i="3">On your M2 Pro Mac (32 GB) with local mlx-lm</button>
+        </div>
+        <div class="quiz-feedback" hidden></div>
+      </div>
+
+      <h2><span class="num">09</span> Primary source</h2>
+      <div class="callout good">
+        <div class="label">Do this next (15–25 min)</div>
+        <p>
+          Read the official
+          <a href="https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LORA.md"><strong>mlx-lm LoRA / fine-tune guide</strong></a>
+          — especially <em>Run</em>, <em>Data</em>, and <em>Memory Issues</em>.
+          Optional: Apple’s
+          <a href="https://developer.apple.com/videos/play/wwdc2025/298/">WWDC25 MLX LM talk</a>
+          (fine-tune section).
+        </p>
+      </div>
+
+      <h2><span class="num">10</span> Real-world micro-task</h2>
+      <p>Hardware is locked: <strong>M2 Pro · 32&nbsp;GB</strong>. Before next lesson (private notes, redacted):</p>
+      <ol>
+        <li>Five real transaction strings (scrub account numbers).</li>
+        <li>Your gut label for each from the draft list — note uncertainty.</li>
+        <li>One line you’d refuse to label without more context (<code>other</code> / schema gap).</li>
+      </ol>
+
+      <div class="teacher">
+        <div class="label">Ask your teacher</div>
+        <p>
+          Unclear on fine-tuning vs LoRA vs “small model,” or how labels should be designed?
+          Ask in chat — that’s what the teacher is for.
+        </p>
+      </div>
+
+      <footer class="course-footer">
+        <div class="nav-links">
+          <a href="../index.html">Course index</a>
+          <a href="../reference/finetune-map.html">Reference · Fine-tune map</a>
+          <a href="../MISSION.md">Mission</a>
+          <a href="../RESOURCES.md">Resources</a>
+        </div>
+        <p style="margin:0.85rem 0 0">
+          Next: Mac setup + first <code>mlx_lm.generate</code> on a small instruct base (lesson 0002).
+        </p>
+        <p style="margin:0.4rem 0 0">Workspace · fine-tune on MLX for txn labels</p>
+      </footer>
+    </div>
+  </div>
+  <script src="../assets/quiz.js"></script>
+</body>
+</html>
