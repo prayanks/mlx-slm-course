@@ -9,5 +9,5 @@
 - Visual system: **Apple marketing-inspired** — system SF fonts, `#f5f5f7` / black, Apple Blue `#0071e3` only, glass topnav, pill CTAs. `assets/lesson.css`.
 - Path: **generative fine-tune** (chat/completion → label string) first; later optional encoder/rules comparison.
 - Do **not** present course tax labels as legal advice.
-- **Git:** public repo (renamed to `mlx-txn-finetune`); commit + push after each lesson. Pages: `https://prayanks.github.io/mlx-txn-finetune/`.
+- **Git:** public repo currently `prayanks/mlx-slm-course` (rebrand content pushed); **rename to `mlx-txn-finetune` pending** GitHub API approval. Local path: `~/mlx-txn-finetune`. After rename: Pages `https://prayanks.github.io/mlx-txn-finetune/`. Until then Pages stays at `https://prayanks.github.io/mlx-slm-course/`.
 - Brand strings in HTML: “Txn fine-tune” / “MLX fine-tune” — never “SLM Course” as the title.

@@ -12,9 +12,10 @@ Self-contained course: **supervised fine-tuning** (LoRA) of open models on Apple
 
 ## Open the course
 
-- **GitHub Pages:** https://prayanks.github.io/mlx-txn-finetune/
-- Lesson 0001: https://prayanks.github.io/mlx-txn-finetune/lessons/0001-what-is-finetuning-for-txn-labels.html
+- **GitHub Pages:** https://prayanks.github.io/mlx-slm-course/ (repo rename to `mlx-txn-finetune` pending)
+- Lesson 0001: https://prayanks.github.io/mlx-slm-course/lessons/0001-what-is-finetuning-for-txn-labels.html
 - Or open `index.html` locally
+- Repo: https://github.com/prayanks/mlx-slm-course → target name `mlx-txn-finetune`
 
 | Path | What |
 |------|------|
