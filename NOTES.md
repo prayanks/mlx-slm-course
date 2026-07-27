@@ -9,4 +9,4 @@
 - Path choice for classification: start with **generative SLM + LoRA** (chat/completion → label string) for learning MLX LM; later optional encoder/classifier comparison so user knows when SLM is overkill.
 - Do **not** present course tax labels as legal advice.
 - First lesson priority: map (pretrain vs fine-tune vs classify-as-generation) before install or train.
-- **Git workflow:** private repo `prayanks/mlx-slm-course`. After generating or materially updating a lesson/reference, commit and push to `main` in the same turn.
+- **Git workflow:** private repo https://github.com/prayanks/mlx-slm-course — after generating or materially updating a lesson/reference, commit and push to `main` in the same turn. Remote is HTTPS without embedded token (`git remote -v` should stay clean).
