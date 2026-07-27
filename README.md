@@ -10,7 +10,9 @@ Self-contained course: **small language models on Apple silicon with MLX**, usin
 
 ## Open the course
 
-Open `index.html` in a browser (or serve the repo root with any static file server).
+- **GitHub Pages:** https://prayanks.github.io/mlx-slm-course/
+- Lesson 0001: https://prayanks.github.io/mlx-slm-course/lessons/0001-the-map-slm-mlx-tax-labels.html
+- Or open `index.html` locally
 
 | Path | What |
 |------|------|
@@ -27,10 +29,10 @@ This course teaches supervised fine-tuning, LoRA, data format, and eval **from f
 
 ## Privacy
 
-- **Private repo** by default.
+- Repo is **public** (required for free-plan GitHub Pages).
 - Never commit real account numbers, full unredacted statements, or tax filings.
 - Sample/transaction data used in labs must be synthetic or scrubbed.
 
 ## Workflow (for the teacher agent)
 
-After generating or updating a lesson/reference in a session: commit and push to `main`.
+After generating or updating a lesson/reference in a session: commit and push to `main`. Pages rebuilds from `main` root.
